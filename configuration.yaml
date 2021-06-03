@@ -1,0 +1,25 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+homeassistant:
+  packages: !include_dir_named packages
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+homekit:
+  advertise_ip: "10.0.1.62"
+  filter:
+    include_entities:
+      - light.livingroom_light
+      - cover.livingroom_curtain
+  entity_config:
+    cover.livingroom_curtain:
+      name: Шторы

@@ -1,0 +1,7 @@
+.ssh
+.storage
+secrets.yaml
+webostv.conf
+core.*
+*.db
+*.log

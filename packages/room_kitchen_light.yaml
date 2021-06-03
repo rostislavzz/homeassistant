@@ -1,0 +1,7 @@
+group:
+  kitchen_motion:
+    name: "Движение на кухне"
+    icon: mdi:walk
+    entities:
+      - binary_sensor.kitchen_motion1_occupancy
+      - binary_sensor.kitchen_motion2_occupancy

@@ -1,0 +1,19 @@
+- id: '1618475286243'
+  name: Bedroom Nightlight
+  entities:
+    light.bedroom_color:
+      kelvin: 1700
+      brightness: 1
+      state: 'on'
+    light.bedroom_mono:
+      state: 'off'
+- id: '1618475343425'
+  name: Bedroom Daylight
+  entities:
+    light.bedroom_color:
+      kelvin: 4000
+      brightness: 255
+      state: 'on'
+    light.bedroom_mono:
+      brightness: 255
+      state: 'on'

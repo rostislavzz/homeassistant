@@ -1,0 +1,153 @@
+- id: '1618463849231'
+  alias: Hall Nightlight On (on motion)
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.hall_motion_occupancy
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.hall_nightlight
+    data: {}
+  mode: single
+- id: '1618464005107'
+  alias: Hall Nightlight Off (no motion)
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.hall_motion_occupancy
+    from: 'on'
+    to: 'off'
+  condition: []
+  action:
+  - service: light.turn_off
+    target:
+      entity_id: light.hall_nightlight
+  mode: single
+- id: '1618550929949'
+  alias: Hall Light On (when wardrobe opens)
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.hall_wardrobe_contact
+    to: 'on'
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.hall_light
+    data:
+      brightness: 255
+  mode: single
+- id: '1618550971408'
+  alias: Hall Light Off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.hall_wardrobe_contact
+    to: 'off'
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.hall_nightlight
+  mode: single
+- id: '1618773541412'
+  alias: Hall Light Off (from unavailable to on, when wardrobe closed)
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: light.hall_light
+    from: unavailable
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.hall_wardrobe_contact
+    state: 'off'
+  action:
+  - service: light.turn_off
+    target:
+      entity_id: light.hall_light
+  mode: single
+- id: '1618773983441'
+  alias: Hall Nightlight Off (from unavailable to on, when no motion)
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: light.hall_nightlight
+    from: unavailable
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.hall_motion_occupancy
+    state: 'off'
+  action:
+  - service: light.turn_off
+    target:
+      entity_id: light.hall_nightlight
+  mode: single
+- id: '1619594288367'
+  alias: Bedroom Nightlight Toggle
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.bedroom_wallswitch_click
+    to: left
+  - platform: state
+    entity_id: sensor.bedroom_button_click
+    to: single
+  condition: []
+  action:
+  - service: light.toggle
+    target:
+      entity_id: light.bedroom_nightlight
+  mode: single
+- id: '1619594366583'
+  alias: Bedroom Daylight Toggle
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.bedroom_wallswitch_click
+    to: right
+  - platform: state
+    entity_id: sensor.bedroom_button_click
+    to: long
+  condition: []
+  action:
+  - service: light.toggle
+    target:
+      entity_id: light.bedroom_daylight
+  mode: single
+- id: '1619615166546'
+  alias: Kitchen Light On
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: group.kitchen_motion
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.kidsroom_curtain_contact
+    state: 'on'
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.kitchen_light
+  mode: single
+- id: '1619615544766'
+  alias: Kitchen Light Off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: group.kitchen_motion
+    to: 'off'
+    for: 00:03:00
+  condition: []
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.kitchen_light
+  mode: single

@@ -4,10 +4,7 @@ webostv:
   host: 10.0.2.162
   name: livingroom_tv
   turn_on_action:
-    service: wake_on_lan.send_magic_packet
-    data:
-      mac: !secret webost_tv_mac
-      broadcast_address: 10.0.2.162
+    service: shell_command.livingroom_tv_wakeup
   customize:
     sources:
       - Plex
@@ -20,3 +17,10 @@ sensor:
       livingroom_tv_source:
         friendly_name: "Источник для телевизора в гостиной"
         value_template: "{{ state_attr('media_player.livingroom_tv', 'source') }}"
+  - platform: template
+    sensors:
+      webost_tv_mac:
+        value_template: !secret webost_tv_mac
+
+shell_command:
+  livingroom_tv_wakeup: 'ether-wake -i eth0.2 {{ states("sensor.webost_tv_mac") }}'

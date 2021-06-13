@@ -151,3 +151,50 @@
     target:
       entity_id: switch.kitchen_light
   mode: single
+- id: '1622739585580'
+  alias: Server Turn On
+  description: ''
+  trigger:
+  - platform: time
+    at: 00:30:00
+  - platform: state
+    entity_id: media_player.livingroom_tv
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: switch.server
+    state: 'off'
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.server
+  mode: single
+- id: '1622740057760'
+  alias: Server Turn Off (at night)
+  description: ''
+  trigger:
+  - platform: time
+    at: 05:30:00
+  condition:
+  - condition: template
+    value_template: '{{ states("media_player.livingroom_tv") != "on" }}'
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.server
+  mode: single
+- id: '1623578775596'
+  alias: Server turn Off (after 15 min after TV off)
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: media_player.livingroom_tv
+    from: 'on'
+    to: 'off'
+    for: 00:15:00
+  condition: []
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.server
+  mode: single

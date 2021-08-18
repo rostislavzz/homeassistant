@@ -160,6 +160,9 @@
   - platform: state
     entity_id: media_player.livingroom_tv
     to: 'on'
+  - platform: state
+    entity_id: media_player.kitchen_tv
+    to: 'on'
   condition:
   - condition: state
     entity_id: switch.server
@@ -192,9 +195,100 @@
     from: 'on'
     to: 'off'
     for: 00:15:00
-  condition: []
+  - platform: state
+    entity_id: media_player.kitchen_tv
+    to: 'off'
+    for: 00:15:00
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: media_player.kitchen_tv
+      state: 'off'
+    - condition: state
+      entity_id: media_player.livingroom_tv
+      state: 'off'
   action:
   - service: switch.turn_off
     target:
       entity_id: switch.server
+  mode: single
+- id: '1623586974424'
+  alias: Livingroom TV open Plex (when server on)
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: switch.server
+    to: 'on'
+  condition:
+  - condition: template
+    value_template: '{{ states("sensor.livingroom_tv_source") != "Apple TV" }}'
+  action:
+  - service: media_player.select_source
+    target:
+      entity_id: media_player.livingroom_tv
+    data:
+      source: Plex
+  mode: single
+- id: '1626115480591'
+  alias: Livingroom Ambilight
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.livingroom_tv_source
+  condition: []
+  action:
+  - service: script.livingroom_ceiling_light_ambilight
+    data_template:
+      effect: '{{ trigger.to_state.state }}'
+  mode: single
+- id: '1626116224631'
+  alias: Liveingroom Ambilight Plex Pause/Idle
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: media_player.plex_plex_for_lg_lg_oled55b7v_z
+    from: playing
+    to: paused
+  - platform: state
+    entity_id: media_player.plex_plex_for_lg_lg_oled55b7v_z
+    from: playing
+    to: idle
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: light.livingroom_nightlight
+      state: 'on'
+    - condition: state
+      entity_id: light.livingroom_ambilight
+      state: 'on'
+  action:
+  - service: light.turn_on
+    data:
+      transition: 5
+      brightness_pct: 35
+    target:
+      entity_id: light.livingroom_nightlight
+  mode: single
+- id: '1626116489348'
+  alias: Liveingroom Ambilight Plex Play
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: media_player.plex_plex_for_lg_lg_oled55b7v_z
+    to: playing
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: light.livingroom_nightlight
+      state: 'on'
+    - condition: state
+      entity_id: light.livingroom_ambilight
+      state: 'on'
+  action:
+  - service: script.livingroom_ceiling_light_ambilight
+    data_template:
+      effect: '{{ states(''sensor.livingroom_tv_source'') }}'
   mode: single

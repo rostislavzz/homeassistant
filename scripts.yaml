@@ -1,0 +1,52 @@
+kitchen_tv_youtube_kids:
+  alias: kitchen_tv_youtube_kids
+  sequence:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: media_player.kitchen_tv_universal
+        state: 'off'
+      sequence:
+      - service: remote.send_command
+        target:
+          entity_id: remote.broadlink_rm_mini
+        data:
+          device: kitchen_tv
+          command: power
+    default: []
+  - wait_template: '{{ is_state("media_player.kitchen_tv", "on") }}'
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 15
+      milliseconds: 0
+  - service: remote.send_command
+    target:
+      entity_id: remote.broadlink_rm_mini
+    data:
+      device: kitchen_tv
+      command: smart
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 0
+  - service: remote.send_command
+    target:
+      entity_id: remote.broadlink_rm_mini
+    data:
+      device: kitchen_tv
+      command: right
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - service: remote.send_command
+    target:
+      entity_id: remote.broadlink_rm_mini
+    data:
+      device: kitchen_tv
+      command: select
+  mode: single
+  icon: mdi:youtube

@@ -20,6 +20,9 @@ homekit:
     include_entities:
       - light.livingroom_light
       - cover.livingroom_curtain
+      - script.kitchen_tv_youtube_kids
   entity_config:
     cover.livingroom_curtain:
       name: Шторы
+    script.kitchen_tv_youtube_kids:
+      name: YouTube Детям

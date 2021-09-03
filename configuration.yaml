@@ -21,8 +21,14 @@ homekit:
       - light.livingroom_light
       - cover.livingroom_curtain
       - script.kitchen_tv_youtube_kids
+      - light.bedroom_daylight
+      - light.bedroom_nightlight
   entity_config:
     cover.livingroom_curtain:
       name: Шторы
     script.kitchen_tv_youtube_kids:
       name: YouTube Детям
+    light.bedroom_daylight:
+      name: Свет
+    light.bedroom_nightlight:
+      name: Ночник

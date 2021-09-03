@@ -19,11 +19,19 @@ homekit:
   filter:
     include_entities:
       - light.livingroom_light
+      - light.livingroom_nightlight
+      - light.livingroom_ambilight
       - cover.livingroom_curtain
       - script.kitchen_tv_youtube_kids
       - light.bedroom_daylight
       - light.bedroom_nightlight
   entity_config:
+    light.livingroom_light:
+      name: Свет
+    light.livingroom_nightlight:
+      name: Ночник
+    light.livingroom_ambilight:
+      name: Подсветка
     cover.livingroom_curtain:
       name: Шторы
     script.kitchen_tv_youtube_kids:

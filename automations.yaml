@@ -1,12 +1,15 @@
 - id: '1618463849231'
-  alias: Hall Nightlight On (on motion)
+  alias: Hall Nightlight On (motion, wardprobe closed)
   description: ''
   trigger:
   - platform: state
     entity_id: binary_sensor.hall_motion_occupancy
     from: 'off'
     to: 'on'
-  condition: []
+  condition:
+  - condition: state
+    entity_id: binary_sensor.hall_wardrobe_contact
+    state: 'off'
   action:
   - service: light.turn_on
     target:
@@ -28,7 +31,7 @@
       entity_id: light.hall_nightlight
   mode: single
 - id: '1618550929949'
-  alias: Hall Light On (when wardrobe opens)
+  alias: Hall Light On (on wardrobe opens)
   description: ''
   trigger:
   - platform: state
@@ -43,7 +46,7 @@
       brightness: 255
   mode: single
 - id: '1618550971408'
-  alias: Hall Light Off
+  alias: Hall Light Off (wardprobe close)
   description: ''
   trigger:
   - platform: state
@@ -243,7 +246,7 @@
       effect: '{{ trigger.to_state.state }}'
   mode: single
 - id: '1626116224631'
-  alias: Liveingroom Ambilight Plex Pause/Idle
+  alias: Livingroom Ambilight Plex Pause/Idle
   description: ''
   trigger:
   - platform: state
@@ -267,12 +270,12 @@
   - service: light.turn_on
     data:
       transition: 5
-      brightness_pct: 35
+      brightness_pct: 30
     target:
       entity_id: light.livingroom_nightlight
   mode: single
 - id: '1626116489348'
-  alias: Liveingroom Ambilight Plex Play
+  alias: Livingroom Ambilight Plex Play
   description: ''
   trigger:
   - platform: state
@@ -291,4 +294,21 @@
   - service: script.livingroom_ceiling_light_ambilight
     data_template:
       effect: '{{ states(''sensor.livingroom_tv_source'') }}'
+  mode: single
+- id: '1630696121253'
+  alias: Hall Light On (motion, wardprobe opened)
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.hall_motion_occupancy
+    to: 'on'
+    from: 'off'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.hall_wardrobe_contact
+    state: 'on'
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.hall_light
   mode: single

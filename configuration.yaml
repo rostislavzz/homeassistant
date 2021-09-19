@@ -43,9 +43,9 @@ homekit:
 
 yandex_smart_home:
   notifier:
-    - oauth_token: AQAAAAAJuFL1AAT7o8oSspAmQUBPlbeJbwod8NU
-      skill_id: 828adf11-37be-4f72-b744-4356d06125d3
-      user_id:  a0c9004f8ac54bd3a9f21e559e59d94b
+    - oauth_token: !secret yandex_smart_home_oauth_token
+      skill_id: !secret yandex_smart_home_skill_id
+      user_id: !secret yandex_smart_home_user_id
   filter:
     include_entities:
       - media_player.livingroom_tv
@@ -54,6 +54,7 @@ yandex_smart_home:
       - switch.livingroom_wallswitch_right
       - cover.livingroom_curtain
       - sensor.kidsroom_sensor_temperature
+      - switch.server
   entity_config:
     media_player.livingroom_tv:
       name: Телевизор
@@ -72,3 +73,6 @@ yandex_smart_home:
       room: Гостиная
     sensor.kidsroom_sensor_temperature:
       room: Детская
+    switch.server:
+      name: Сервер
+      room: Гостиная

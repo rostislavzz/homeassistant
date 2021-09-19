@@ -40,3 +40,35 @@ homekit:
       name: Свет
     light.bedroom_nightlight:
       name: Ночник
+
+yandex_smart_home:
+  notifier:
+    - oauth_token: AQAAAAAJuFL1AAT7o8oSspAmQUBPlbeJbwod8NU
+      skill_id: 828adf11-37be-4f72-b744-4356d06125d3
+      user_id:  a0c9004f8ac54bd3a9f21e559e59d94b
+  filter:
+    include_entities:
+      - media_player.livingroom_tv
+      - light.livingroom_light
+      - light.livingroom_nightlight
+      - switch.livingroom_wallswitch_right
+      - cover.livingroom_curtain
+      - sensor.kidsroom_sensor_temperature
+  entity_config:
+    media_player.livingroom_tv:
+      name: Телевизор
+      room: Гостиная
+    light.livingroom_light:
+      name: Свет
+      room: Гостиная
+    light.livingroom_nightlight:
+      name: Ночник
+      room: Гостиная
+    switch.livingroom_wallswitch_right:
+      name: Светильники
+      room: Гостиная
+    cover.livingroom_curtain:
+      name: Шторы
+      room: Гостиная
+    sensor.kidsroom_sensor_temperature:
+      room: Детская

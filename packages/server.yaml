@@ -10,3 +10,25 @@ switch:
     host: 10.0.1.213
     turn_off:
       service: shell_command.server_suspend
+
+  - platform: template
+    switches:
+      server_automation:
+        friendly_name: "Автоматическое включение/выключение"
+        value_template: "{{ is_state('group.server_automation', 'on') }}"
+        turn_on:
+          service: automation.turn_on
+          data:
+            entity_id: group.server_automation
+        turn_off:
+          service: automation.turn_off
+          data:
+            entity_id: group.server_automation
+
+group:
+  server_automation:
+    name: "Автоматическое включение/выключение"
+    entities:
+      - automation.server_turn_on
+      - automation.server_turn_off
+      - automation.server_turn_off_after_15_min_after_tv_off

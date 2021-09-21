@@ -1,0 +1,16 @@
+media_player:
+  - platform: universal
+    name: kitchen_tv_universal
+    children:
+      - media_player.kitchen_tv
+    commands:
+      turn_on:
+        service: remote.send_command
+        target:
+          entity_id: remote.broadlink_rm_mini
+        data:
+          device: kitchen_tv
+          command: power
+    device_class: tv
+    attributes:
+      state: media_player.kitchen_tv

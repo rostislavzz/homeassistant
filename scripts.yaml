@@ -50,3 +50,26 @@ kitchen_tv_youtube_kids:
       command: select
   mode: single
   icon: mdi:youtube
+livingroom_ceiling_light:
+  alias: livingroom_ceiling_light
+  sequence:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: switch.livingroom_wallswitch_left
+        state: 'off'
+      sequence:
+      - service: switch.turn_on
+        target:
+          entity_id: switch.livingroom_wallswitch_left
+    - conditions:
+      - condition: state
+        entity_id: light.livingroom_light
+        state: 'off'
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id: light.livingroom_light
+    default: []
+  mode: single
+  icon: mdi:ceiling-light

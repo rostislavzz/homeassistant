@@ -18,15 +18,15 @@ homekit:
   advertise_ip: "10.0.1.62"
   filter:
     include_entities:
-      - light.livingroom_light
+      - cover.livingroom_curtain
+      - light.livingroom_ceiling_light
       - light.livingroom_nightlight
       - light.livingroom_ambilight
-      - cover.livingroom_curtain
-      - script.kitchen_tv_youtube_kids
       - light.bedroom_daylight
       - light.bedroom_nightlight
+      - script.kitchen_tv_youtube_kids
   entity_config:
-    light.livingroom_light:
+    light.livingroom_ceiling_light:
       name: Свет
     light.livingroom_nightlight:
       name: Ночник
@@ -48,22 +48,39 @@ yandex_smart_home:
       user_id: !secret yandex_smart_home_user_id
   filter:
     include_entities:
-      - media_player.livingroom_tv
-      - light.livingroom_light
-      - light.livingroom_nightlight
-      - switch.livingroom_wallswitch_right
       - cover.livingroom_curtain
+      - light.livingroom_ceiling_light
+      - light.livingroom_nightlight
+      - light.livingroom_ambilight
+      - media_player.livingroom_tv
+      - media_player.kitchen_tv_universal
       - sensor.kidsroom_sensor_temperature
+      - switch.livingroom_wallswitch_right
       - switch.server
   entity_config:
     media_player.livingroom_tv:
       name: Телевизор
       room: Гостиная
-    light.livingroom_light:
+      modes:
+        input_source:
+          one: [Plex]
+          two: [YouTube]
+      custom_modes:
+        input_source:
+          state_attribute: source
+          set_mode:
+            service: media_player.select_source
+            entity_id: media_player.livingroom_tv
+            data:
+              source: '{{ mode }}'
+    light.livingroom_ceiling_light:
       name: Свет
       room: Гостиная
     light.livingroom_nightlight:
       name: Ночник
+      room: Гостиная
+    light.livingroom_ambilight:
+      name: Подсветка
       room: Гостиная
     switch.livingroom_wallswitch_right:
       name: Светильники
@@ -76,3 +93,6 @@ yandex_smart_home:
     switch.server:
       name: Сервер
       room: Гостиная
+    media_player.kitchen_tv_universal:
+      name: Телевизор
+      room: Кухня

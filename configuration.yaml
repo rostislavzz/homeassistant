@@ -57,6 +57,7 @@ yandex_smart_home:
       - sensor.kidsroom_sensor_temperature
       - switch.livingroom_wallswitch_right
       - switch.server
+      - vacuum.valetudo
   entity_config:
     media_player.livingroom_tv:
       name: Телевизор
@@ -96,3 +97,6 @@ yandex_smart_home:
     media_player.kitchen_tv_universal:
       name: Телевизор
       room: Кухня
+    vacuum.valetudo:
+      name: Пылесос
+      room: Гостиная

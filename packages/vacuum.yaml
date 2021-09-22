@@ -1,0 +1,39 @@
+vacuum:
+  - platform: template
+    vacuums:
+      valetudo:
+        friendly_name: Пылесос
+        value_template: "{{ states('vacuum.rockrobo') }}"
+        start:
+          - service: mqtt.publish
+            data_template:
+              topic: "valetudo/rockrobo/custom_command"
+              payload: >-
+                {
+                  "command": "zoned_cleanup",
+                  "zone_ids": [
+                    {
+                      "id": "kitchen",
+                      "repeats": 2
+                    },
+                    {
+                      "id": "hall",
+                      "repeats": 2
+                    }
+                  ]
+                }
+        pause:
+          - service: mqtt.publish
+            data_template:
+              topic: "valetudo/rockrobo/command"
+              payload: pause
+        stop:
+          - service: mqtt.publish
+            data_template:
+              topic: "valetudo/rockrobo/command"
+              payload: stop
+        return_to_base:
+          - service: mqtt.publish
+            data_template:
+              topic: "valetudo/rockrobo/command"
+              payload: return_to_base

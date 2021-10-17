@@ -73,3 +73,32 @@ livingroom_ceiling_light:
     default: []
   mode: single
   icon: mdi:ceiling-light
+livingroom_tv_play:
+  alias: livingroom_tv_play
+  sequence:
+  - choose:
+    - conditions:
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: media_player.livingroom_tv
+          attribute: source
+          state: Plex
+        - condition: state
+          entity_id: media_player.plex_plex_for_lg_lg_oled55b7v_z
+          state: paused
+          for:
+            hours: 0
+            minutes: 0
+            seconds: 0
+            milliseconds: 0
+      sequence:
+      - service: media_player.media_play
+        target:
+          entity_id: media_player.plex_plex_for_lg_lg_oled55b7v_z
+    default:
+    - service: media_player.media_play
+      target:
+        entity_id: media_player.livingroom_tv
+  mode: single
+  icon: mdi:television

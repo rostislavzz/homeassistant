@@ -11,6 +11,20 @@ webostv:
       - YouTube
       - Apple TV
 
+media_player:
+  - platform: universal
+    name: livingroom_tv_universal
+    children:
+      - media_player.livingroom_tv
+    commands:
+      media_play:
+        service: script.turn_on
+        target:
+          entity_id: script.livingroom_tv_play
+    device_class: tv
+    attributes:
+      state: media_player.livingroom_tv
+
 sensor:
   - platform: template
     sensors:

@@ -52,14 +52,14 @@ yandex_smart_home:
       - light.livingroom_ceiling_light
       - light.livingroom_nightlight
       - light.livingroom_ambilight
-      - media_player.livingroom_tv
+      - media_player.livingroom_tv_universal
       - media_player.kitchen_tv_universal
       - sensor.kidsroom_sensor_temperature
       - switch.livingroom_wallswitch_right
       - switch.server
       - vacuum.valetudo
   entity_config:
-    media_player.livingroom_tv:
+    media_player.livingroom_tv_universal:
       name: Телевизор
       room: Гостиная
       modes:
